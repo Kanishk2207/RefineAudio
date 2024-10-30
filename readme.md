@@ -19,6 +19,7 @@ This project processes a video by extracting its audio, transcribing speech to t
 - Removes filler words from transcription using OpenAI
 - Generates aligned audio based on modified transcription
 - Merges processed audio back with the original video
+- Have a streamlit interface
 
 ## Setup
 
@@ -65,7 +66,7 @@ pip install -r requirements.txt
 3. Fill out the service account name and click **Create and Continue**.
 4. Grant **Owner** or **Editor** access to the service account (to manage API access) and click **Continue**.
 5. Under the **Actions** column, select **Create Key**. Choose JSON format and download the file.
-6. Place the downloaded JSON file in the project directory and update the `GOOGLE_APPLICATION_CREDENTIALS` variable in the `.env` file with its path.
+6. Place the downloaded JSON file in the project directory and update the `GOOGLE_APPLICATION_CREDENTIALS` variable in the `environment variables` file with its path.
 
 #### Step 4: Install and Initialize the Google Cloud SDK (Optional)
 If you haven't set up `gcloud` CLI for managing GCP projects:
@@ -77,18 +78,20 @@ curl https://sdk.cloud.google.com | bash
 gcloud init
 ```
 
+# PLEASE NOTE THAT: make sure to have a azure openai resource with a good token limit.
+
 ## Usage
 
 1. **Run the main processing script**:
    The following command processes a video file, applying all steps in sequence and saving the final output with corrected audio:
    ```bash
-   python main.py
+   streamlit run main.py
    ```
    
    Make sure to place your input video in `./resources/` or specify the correct path in `main.py` under `process_video` function.
 
 2. **Progress Tracking**:
-   - While transcribing, the terminal displays a progress bar for Speech-to-Text processing. Each chunk of audio processed will update this bar.
+   - While transcribing, the terminal displays a progress bar for Speech-to-Text and Text-to-speech processing in terminal. Each chunk of audio processed will update this bar.
    
 3. **Output**:
    - The processed video with aligned audio will be saved as `./resources/output_with_corrected_audio.mp4`.
